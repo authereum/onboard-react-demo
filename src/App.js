@@ -35,6 +35,7 @@ let internalTransferContract
 
 function App() {
   const [address, setAddress] = useState(null)
+  const [starkKey, setStarkKey] = useState(null)
   const [network, setNetwork] = useState(null)
   const [balance, setBalance] = useState(null)
   const [wallet, setWallet] = useState({})
@@ -53,7 +54,7 @@ function App() {
       address: setAddress,
       network: setNetwork,
       balance: setBalance,
-      wallet: wallet => {
+      wallet: async wallet => {
         if (wallet.provider) {
           setWallet(wallet)
 
@@ -70,6 +71,10 @@ function App() {
           )
 
           window.localStorage.setItem('selectedWallet', wallet.name)
+          await wallet.provider.enable()
+          wallet.provider.getActiveAccount()
+          .then(setStarkKey)
+          .catch(console.error)
         } else {
           provider = null
           setWallet({})
@@ -207,7 +212,8 @@ function App() {
   return onboard && notify ? (
     <main>
       <header className="user-info">
-        {address && <span>{address}</span>}
+        {address && <span>adddress: {address}</span>}
+          {starkKey && <span>stark key: {starkKey}</span>}
         {balance != null && (
           <span>
             {Number(balance) > 0 ? balance / 1000000000000000000 : balance} ETH
@@ -504,7 +510,7 @@ function App() {
         </span>
         <span>
           Onboard.js version:{' '}
-          <i>{staging ? 'NEXT' : dependencies['bnc-onboard'].slice(1)}</i>
+          <i>{staging ? 'NEXT' : dependencies['@authereum/bnc-onboard'].slice(1)}</i>
         </span>
         <span>
           Notify.js version:{' '}

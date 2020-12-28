@@ -1,7 +1,7 @@
 import stagingOnboard from 'bnc-onboard-staging'
 import stagingNotify from 'bnc-notify-staging'
 import Notify from 'bnc-notify'
-import Onboard from 'bnc-onboard'
+import Onboard from '@authereum/bnc-onboard'
 
 const networkId = 4
 const rpcUrl = 'https://rinkeby.infura.io/v3/d5e29c9b9a9d4116a7348113f57770a8'
