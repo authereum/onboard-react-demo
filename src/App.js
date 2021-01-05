@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { ethers } from 'ethers'
 import VConsole from 'vconsole'
 import getSigner from './signer'
-import { initOnboard, initNotify } from './services'
+import { initOnboard, initNotify, starkConfig } from './services'
 import { version, dependencies } from '../package.json'
 
 import './App.css'
@@ -71,7 +71,11 @@ function App() {
           )
 
           window.localStorage.setItem('selectedWallet', wallet.name)
-          await wallet.provider.enable()
+          await wallet.provider.enable(
+            starkConfig.layer,
+            starkConfig.application,
+            starkConfig.index,
+          )
           wallet.provider.getActiveAccount()
           .then(setStarkKey)
           .catch(console.error)

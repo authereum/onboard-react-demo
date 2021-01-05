@@ -9,6 +9,14 @@ const apiUrl = process.env.REACT_APP_API_URL
 const staging = process.env.REACT_APP_STAGING
 const dappId = '12153f55-f29e-4f11-aa07-90f10da5d778'
 
+export const starkConfig = {
+  authMessage: () => 'Sign this example message: 123',
+  exchangeAddress: '0x4a2ac1e2ba79d4b73d86b5dbd1a05a627964b33c',
+  layer: 'starkex',
+  application: 'starkexdvf',
+  index: '0'
+}
+
 export function initOnboard(subscriptions) {
   const onboard = staging ? stagingOnboard : Onboard
   return onboard({
@@ -68,7 +76,8 @@ export function initOnboard(subscriptions) {
       { checkName: 'accounts' },
       { checkName: 'network' },
       { checkName: 'balance', minimumBalance: '100000' }
-    ]
+    ],
+    starkConfig
   })
 }
 

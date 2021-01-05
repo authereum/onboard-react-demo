@@ -14,7 +14,8 @@
     "vconsole": "^3.3.4"
   },
   "scripts": {
-    "start": "HTTPS=false react-scripts start",
+    "start": "react-scripts start",
+    "start:https": "HTTPS=true SSL_CRT_FILE=cert.crt SSL_KEY_FILE=cert.key react-scripts start",
     "start-staging": "REACT_APP_API_URL=wss://staging.api.blocknative.com/v0 REACT_APP_STAGING=true HTTPS=true react-scripts start",
     "start-local": "REACT_APP_API_URL=ws://localhost:54100/v0 REACT_APP_STAGING=true HTTPS=true react-scripts start",
     "build": "react-scripts --max_old_space_size=4096 build",
